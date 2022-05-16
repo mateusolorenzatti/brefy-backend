@@ -9,7 +9,7 @@ export class Book {
     @Column()
     title: string
     
-    @Column()
+    @Column({ nullable: true })
     description: string
     
     @Column()
@@ -18,7 +18,7 @@ export class Book {
     @Column()
     year: number
     
-    @Column()
+    @Column({ nullable: true })
     genre: string
 
 }

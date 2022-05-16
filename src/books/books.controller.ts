@@ -1,42 +1,39 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common'
-import { Book } from './book.model'
+
+import { Book } from './book.entity'
 import { BooksService } from './books.service'
 import { CreateBookDto } from './dto/create-book'
 import { GetBooksFilterDto } from './dto/get-books-filter'
 
 @Controller('books')
 export class BooksController {
-    constructor(private booksService: BooksService) {}
+  constructor(private booksService: BooksService) { }
 
-    @Get()
-    getTasks(@Query() filterDto: GetBooksFilterDto): Book[] {
-      if (Object.keys(filterDto).length) {
-        return this.booksService.getBooksWithFilters(filterDto)
-      } else {
-        return this.booksService.getAllBooks()
-      }
-    }
-  
-    @Get('/:id')
-    getTaskById(@Param('id') id: string): Book {
-      return this.booksService.getBookById(id)
-    }
-  
-    @Post()
-    createTask(@Body() createBookDto: CreateBookDto): Book {
-      return this.booksService.createBook(createBookDto)
-    }
-  
-    @Delete('/:id')
-    deleteTask(@Param('id') id: string): void {
-      return this.booksService.deleteBook(id)
-    }
-  
-    @Put('/:id')
-    updateTaskStatus(
-      @Param('id') id: string,
-      @Body() updatedBook: CreateBookDto,
-    ): Book {
-      return this.booksService.updateBook(id, updatedBook)
-    }
+  @Get()
+  getTasks(@Query() filterDto: GetBooksFilterDto): Promise<Book[]> {
+    return this.booksService.getBooks(filterDto)
+  }
+
+  @Get('/:id')
+  getTaskById(@Param('id') id: string): Promise<Book> {
+    return this.booksService.getBookById(id)
+  }
+
+  @Post()
+  createTask(@Body() createBookDto: CreateBookDto): Promise<Book> {
+    return this.booksService.createBook(createBookDto)
+  }
+
+  @Delete('/:id')
+  deleteTask(@Param('id') id: string): Promise<void> {
+    return this.booksService.deleteBook(id)
+  }
+
+  @Put('/:id')
+  updateTaskStatus(
+    @Param('id') id: string,
+    @Body() updatedBook: CreateBookDto,
+  ): Promise<Book> {
+    return this.booksService.updateBook(id, updatedBook)
+  }
 }

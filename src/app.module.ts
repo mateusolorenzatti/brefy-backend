@@ -16,6 +16,7 @@ import { BooksModule } from './books/books.module';
       username: 'postgres',
       password: 'postgres',
       database: 'brefy',
+      entities: ["dist/**/*.entity{.ts,.js}"],
       autoLoadEntities: true,
       synchronize: true,
     })

@@ -1,0 +1,7 @@
+Rodar o comando no terminal:
+
+sudo docker run --name postgres-nest -p 5433:5432 -e POSTGRES_PASSWORD=postgres -d postgres
+
+Obs.: 
+ 1 - Foi trocado a porta para 5433 por conta do serviço rodando na máquina física.
+ 2 - Rodar o comando 'sudo docker stop/start postgres-nest' quando o container já estiver criado.

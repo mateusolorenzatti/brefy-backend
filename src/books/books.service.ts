@@ -1,31 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
 
-import { Book } from './book.model';
+import { Book } from './book.entity';
+import { BooksRepository } from './books.repository';
 import { CreateBookDto } from './dto/create-book';
 import { GetBooksFilterDto } from './dto/get-books-filter';
 
 @Injectable()
 export class BooksService {
-    private books: Book[] = []
+    constructor(
+        @InjectRepository(BooksRepository)
+        private booksRepository: BooksRepository,
+    ) { }
 
-    getAllBooks(): Book[] {
-        return this.books
+    async getBooks(filterDto: GetBooksFilterDto): Promise<Book[]> {
+        return this.booksRepository.getBooks(filterDto)
     }
 
-    getBooksWithFilters(filterDto: GetBooksFilterDto): Book[] {
-        const { search } = filterDto
-
-        let books = this.getAllBooks()
-
-        if (search)
-            books = books.filter((book) => (book.title.includes(search)))
-
-        return books
-    }
-
-    getBookById(id: string): Book {
-        let found = this.books.find((book) => book.id === id)
+    async getBookById(id: string): Promise<Book> {
+        let found = await this.booksRepository.findOne(id)
 
         if (!found)
             throw new NotFoundException(`Book with ID "${id}" not found`)
@@ -33,33 +26,27 @@ export class BooksService {
         return found
     }
 
-    createBook(createBookDto: CreateBookDto): Book {
-        const book: Book = {
-            id: uuid(),
-            title: createBookDto.title,
-            description: createBookDto.description,
-            pages: createBookDto.pages,
-            year: createBookDto.year,
-            genre: createBookDto.genre
-        }
-
-        this.books.push(book)
-        return book
+    createBook(createBookDto: CreateBookDto): Promise<Book> {
+        return this.booksRepository.createBook(createBookDto)
     }
 
-    deleteBook(id: string): void {
-        const found = this.getBookById(id)
-        this.books = this.books.filter((book) => book.id != id)
+    async deleteBook(id: string): Promise<void> {
+        const result = await this.booksRepository.delete(id)
+
+        if (result.affected === 0)
+            throw new NotFoundException(`Book with ID "${id}" not found`)
     }
 
-    updateBook(id: string, updatedBook: CreateBookDto): Book {
-        const book = this.getBookById(id)
+    async updateBook(id: string, updatedBook: CreateBookDto): Promise<Book> {
+        const book = await this.getBookById(id)
 
         book.title = updatedBook.title
         book.description = updatedBook.description
         book.pages = updatedBook.pages
         book.year = updatedBook.year
         book.genre = updatedBook.genre
+
+        await this.booksRepository.save(book)
 
         return book
     }
