@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { BooksModule } from './books/books.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +21,8 @@ import { BooksModule } from './books/books.module';
       entities: ["dist/**/*.entity{.ts,.js}"],
       autoLoadEntities: true,
       synchronize: true,
-    })
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
