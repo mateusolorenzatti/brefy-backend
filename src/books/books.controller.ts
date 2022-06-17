@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 
 import { Book } from './book.entity'
 import { BooksService } from './books.service'
@@ -6,6 +7,7 @@ import { CreateBookDto } from './dto/create-book'
 import { GetBooksFilterDto } from './dto/get-books-filter'
 
 @Controller('books')
+@UseGuards(AuthGuard())
 export class BooksController {
   constructor(private booksService: BooksService) { }
 
