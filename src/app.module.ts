@@ -6,11 +6,14 @@ import { AppService } from './app.service';
 
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
+import { ReadModule } from './read/read.module';
 
 @Module({
   imports: [
     BooksModule,
     AuthModule,
+    ReadModule,
+    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

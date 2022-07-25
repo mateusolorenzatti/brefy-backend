@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+import { Read } from "src/read/read.entity";
 
 @Entity()
 export class User{
@@ -11,5 +13,8 @@ export class User{
     
     @Column()
     password: string
+
+    @OneToMany(() => Read, read => read.user, { eager: false })
+    reads: Read[]
     
 }
