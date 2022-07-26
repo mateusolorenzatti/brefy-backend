@@ -14,6 +14,7 @@ import { BooksService } from './books.service';
     forwardRef(() => AuthModule),
     forwardRef(() => ReadingsModule),
   ],
+  exports: [BooksService],
   controllers: [BooksController],
   providers: [BooksService]
 })

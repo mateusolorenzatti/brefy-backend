@@ -19,6 +19,13 @@ export class Book {
     
     @Column()
     year: number
+
+    /* ToDo: Add Field Author (Another entity)
+
+    @Column()
+    author: string
+
+    */
     
     @Column({ nullable: true })
     genre: string
