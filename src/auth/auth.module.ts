@@ -1,12 +1,13 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersRepository } from './users.repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { UsersRepository } from './users.repository';
 import { JwtStrategy } from './jwt.strategy';
-import { ReadModule } from 'src/read/read.module';
+import { ReadingsModule } from 'src/readings/readings.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { ReadModule } from 'src/read/read.module';
     }),
     TypeOrmModule.forFeature([UsersRepository]),
     
-    forwardRef(() => ReadModule),
+    forwardRef(() => ReadingsModule),
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],

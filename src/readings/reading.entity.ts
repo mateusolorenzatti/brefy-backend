@@ -1,9 +1,11 @@
-import { User } from 'src/auth/user.entity'
-import { Book } from 'src/books/book.entity'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
+import { User } from 'src/auth/user.entity'
+import { Book } from 'src/books/book.entity'
+import { ReadingStatus } from './reading-status.enum'
+
 @Entity()
-export class Read {
+export class Reading {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -13,6 +15,9 @@ export class Read {
     
     @Column({ nullable: true })
     end: Date
+
+    @Column()
+    status: ReadingStatus
     
     @ManyToOne((_type) => Book, book => book.reads, { eager: true } )
     book: Book

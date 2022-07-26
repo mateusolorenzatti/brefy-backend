@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from "typeorm";
 
-import { Read } from "./read.entity";
+import { Reading } from "./reading.entity";
 
-@EntityRepository(Read)
-export class ReadRepository extends Repository<Read> {
+@EntityRepository(Reading)
+export class ReadingsRepository extends Repository<Reading> {
 
     
     /* 

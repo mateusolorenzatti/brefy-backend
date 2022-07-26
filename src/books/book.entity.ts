@@ -1,5 +1,6 @@
-import { Read } from 'src/read/read.entity'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Reading } from 'src/readings/reading.entity'
 
 @Entity()
 export class Book {
@@ -22,6 +23,6 @@ export class Book {
     @Column({ nullable: true })
     genre: string
 
-    @OneToMany(() => Read, read => read.book, { eager: false })
-    reads: Read[]
+    @OneToMany(() => Reading, read => read.book, { eager: false })
+    reads: Reading[]
 }
