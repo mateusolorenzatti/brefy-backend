@@ -12,27 +12,27 @@ export class BooksController {
   constructor(private booksService: BooksService) { }
 
   @Get()
-  getTasks(@Query() filterDto: GetBooksFilterDto): Promise<Book[]> {
+  getBooks(@Query() filterDto: GetBooksFilterDto): Promise<Book[]> {
     return this.booksService.getBooks(filterDto)
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: string): Promise<Book> {
+  getBookById(@Param('id') id: string): Promise<Book> {
     return this.booksService.getBookById(id)
   }
 
   @Post()
-  createTask(@Body() createBookDto: CreateBookDto): Promise<Book> {
+  createBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
     return this.booksService.createBook(createBookDto)
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id') id: string): Promise<void> {
+  deleteBook(@Param('id') id: string): Promise<void> {
     return this.booksService.deleteBook(id)
   }
 
   @Put('/:id')
-  updateTaskStatus(
+  updateBook(
     @Param('id') id: string,
     @Body() updatedBook: CreateBookDto,
   ): Promise<Book> {
