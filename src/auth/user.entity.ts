@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Read } from "src/read/read.entity";
+import { UserLevel } from "./user-level.enum";
 
 @Entity()
 export class User{
@@ -13,6 +14,9 @@ export class User{
     
     @Column()
     password: string
+
+    @Column()
+    level: UserLevel
 
     @OneToMany(() => Read, read => read.user, { eager: false })
     reads: Read[]
