@@ -12,7 +12,8 @@ export class User{
     @Column({ unique: true })
     username: string
 
-    /* ToDo: Add Email field */
+    @Column({ unique: true })
+    email: string
     
     @Column()
     password: string
