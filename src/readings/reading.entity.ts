@@ -18,11 +18,14 @@ export class Reading {
 
     @Column()
     status: ReadingStatus
+
+    @Column()
+    public: boolean
     
     @ManyToOne((_type) => Book, book => book.reads, { eager: true } )
     book: Book
     
-    @ManyToOne((_type) => User, user => user.reads, { eager: true } )
+    @ManyToOne((_type) => User, user => user.reads, { eager: false } )
     user: User
 
 }

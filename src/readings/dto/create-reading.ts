@@ -5,4 +5,5 @@ export class CreateReadingDto {
     end?: Date
     status: ReadingStatus
     book: string
+    public: boolean
 }

@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 import { CreateReadingDto } from './dto/create-reading';
 import { GetReadingsFilterDto } from './dto/get-readings-filter';
-
 import { Reading } from './reading.entity';
 import { ReadingsService } from './readings.service';
 
@@ -20,8 +20,15 @@ export class ReadingsController {
         return this.readingsService.getReadings(filterDto)
     }
 
+    /* ToDo: 
+        Validation for:
+            - Book does not exists
+            - Status does not exists
+            - Blocked users (in general)
+    */
+
     @Post()
-    createBook(
+    createReading(
         @Body() createDto: CreateReadingDto,
         @GetUser() user: User
     ): Promise<Reading> {

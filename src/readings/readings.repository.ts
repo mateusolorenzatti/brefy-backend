@@ -37,6 +37,7 @@ export class ReadingsRepository extends Repository<Reading> {
             start: createDto.start,
             end: createDto.end,
             status: createDto.status,
+            public: createDto.public,
             book: book,
             user: user
         })
