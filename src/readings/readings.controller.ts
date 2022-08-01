@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { GetUser } from 'src/auth/get-user.decorator';
@@ -20,13 +20,6 @@ export class ReadingsController {
         return this.readingsService.getReadings(filterDto)
     }
 
-    /* ToDo: 
-        Validation for:
-            - Book does not exists
-            - Status does not exists
-            - Blocked users (in general)
-    */
-
     @Post()
     createReading(
         @Body() createDto: CreateReadingDto,
@@ -34,15 +27,20 @@ export class ReadingsController {
     ): Promise<Reading> {
         return this.readingsService.createReading(createDto, user)
     }
-    
-    /*
 
+    /*
+    ToDo:
+        - Filter for public tag and owner of reading
+        - Create getReadingsByUser (public for not owners and all for owner)
+    */
+    
     @Get('/:id')
-    getBookById(@Param('id') id: string): Promise<Book> {
-        return this.booksService.getBookById(id)
+    getReadingById(@Param('id') id: string): Promise<Reading> {
+        return this.readingsService.getReadingById(id)
     }
 
-
+    /*
+    
     @Delete('/:id')
     deleteBook(@Param('id') id: string): Promise<void> {
         return this.booksService.deleteBook(id)
