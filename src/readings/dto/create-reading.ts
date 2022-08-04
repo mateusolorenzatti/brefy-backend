@@ -1,8 +1,12 @@
-import { IsEnum, Matches } from "class-validator"
+import { IsBoolean, IsDateString, IsEnum, IsOptional, IsUUID } from "class-validator"
 import { ReadingStatus } from "../reading-status.enum"
 
 export class CreateReadingDto {
+    @IsDateString()
     start: Date
+
+    @IsOptional()
+    @IsDateString()
     end?: Date
 
     @IsEnum(
@@ -14,6 +18,9 @@ export class CreateReadingDto {
     )
     status: ReadingStatus
     
+    @IsUUID('all',{each:true})
     book: string
+
+    @IsBoolean()
     public: boolean
 }
