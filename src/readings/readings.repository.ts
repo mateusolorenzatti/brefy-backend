@@ -9,7 +9,7 @@ import { Reading } from "./reading.entity";
 @EntityRepository(Reading)
 export class ReadingsRepository extends Repository<Reading> {
 
-    async getReadings(filterDto: GetReadingsFilterDto): Promise<Reading[]> {
+    async getReadingsByUser(filterDto: GetReadingsFilterDto, user: User): Promise<Reading[]> {
         const { book, author } = filterDto
         const query = this.createQueryBuilder('reading')
             .leftJoinAndSelect('reading.book', 'book')
@@ -28,6 +28,8 @@ export class ReadingsRepository extends Repository<Reading> {
             )
         */
        
+        query.andWhere({ user })
+
         const readings = await query.getMany()
         return readings
     }

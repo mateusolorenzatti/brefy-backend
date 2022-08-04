@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { UsersRepository } from './users.repository';
 import { JwtStrategy } from './jwt.strategy';
 import { ReadingsModule } from 'src/readings/readings.module';
+import { UsersService } from './users.service';
 
 @Module({
   imports: [
@@ -22,8 +23,8 @@ import { ReadingsModule } from 'src/readings/readings.module';
     
     forwardRef(() => ReadingsModule),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, UsersService],
   controllers: [AuthController],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, PassportModule, UsersService],
 })
 export class AuthModule { }

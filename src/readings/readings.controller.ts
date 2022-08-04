@@ -15,9 +15,11 @@ export class ReadingsController {
 
     @Get()
     getReadings(
-        @Query() filterDto: GetReadingsFilterDto
+        @Param('userId') userId: string,
+        @Query() filterDto: GetReadingsFilterDto,
+        @GetUser() user: User
     ): Promise<Reading[]> {
-        return this.readingsService.getReadings(filterDto)
+        return this.readingsService.getReadingsByUser(filterDto, user)
     }
 
     @Post()
@@ -27,16 +29,13 @@ export class ReadingsController {
     ): Promise<Reading> {
         return this.readingsService.createReading(createDto, user)
     }
-
-    /*
-    ToDo:
-        - Filter for public tag and owner of reading
-        - Create getReadingsByUser (public for not owners and all for owner)
-    */
     
     @Get('/:id')
-    getReadingById(@Param('id') id: string): Promise<Reading> {
-        return this.readingsService.getReadingById(id)
+    getReadingById(
+        @Param('id') id: string,
+        @GetUser() user: User
+    ): Promise<Reading> {
+        return this.readingsService.getReadingById(id, user)
     }
 
     /*

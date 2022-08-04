@@ -26,9 +26,9 @@ export class AuthService {
         
         const user = await this.usersRepository.findOne({ username })
 
-        if ( user.level === UserLevel.BLOCKED ) throw new UnauthorizedException('Please check your credentials')
-
         if ( user && (await bcrypt.compare(password, user.password) ) ){
+            if ( user.level === UserLevel.BLOCKED ) throw new UnauthorizedException('Please check your credentials')
+            
             const payload: JwtPayload = { username }
             const accessToken: string = await this.jwtService.sign(payload)            
 
