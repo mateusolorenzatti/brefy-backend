@@ -1,12 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Controller, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { User } from 'src/auth/user.entity';
 import { UsersService } from 'src/auth/users.service';
-import { Book } from 'src/books/book.entity';
-import { BooksRepository } from 'src/books/books.repository';
 import { BooksService } from 'src/books/books.service';
 import { CreateReadingDto } from './dto/create-reading';
 import { GetReadingsFilterDto } from './dto/get-readings-filter';
+import { UpdateReadingDto } from './dto/update-reading';
 import { Reading } from './reading.entity';
 import { ReadingsRepository } from './readings.repository';
 
@@ -22,11 +22,11 @@ export class ReadingsService {
     async getReadingsByUser(filterDto: GetReadingsFilterDto, sessionUser: User): Promise<Reading[]> {
         let readings: Reading[]
 
-        if (filterDto.user) {            
+        if (filterDto.user) {
             let user = await this.usersService.getUserById(filterDto.user)
             readings = await this.readingsRepository.getReadingsByUser(filterDto, user)
             readings = readings.filter(reading => reading.public)
-            
+
         } else {
             readings = await this.readingsRepository.getReadingsByUser(filterDto, sessionUser)
 
@@ -63,28 +63,29 @@ export class ReadingsService {
         return found
     }
 
-    /*
-    
-    async deleteBook(id: string): Promise<void> {
-        const result = await this.booksRepository.delete(id)
+    async deleteReading(id: string, user: User): Promise<void> {
+        const result = await this.readingsRepository.delete({ id, user })
 
         if (result.affected === 0)
-            throw new NotFoundException(`Book with ID ${id} not found`)
+            throw new NotFoundException(`Reading with ID ${id} not found`)
     }
 
-    async updateBook(id: string, updatedBook: CreateBookDto): Promise<Book> {
-        const book = await this.getBookById(id)
+    async updateReading(id: string, updatedBook: UpdateReadingDto, user: User): Promise<Reading> {
+        const reading = await this.readingsRepository.findOne({
+            where: [{ id, user }]
+        })
 
-        book.title = updatedBook.title
-        book.description = updatedBook.description
-        book.pages = updatedBook.pages
-        book.year = updatedBook.year
-        book.genre = updatedBook.genre
+        if (!reading)
+            throw new NotFoundException(`Reading with ID ${id} not found`)
 
-        await this.booksRepository.save(book)
+        reading.start = updatedBook.start ? updatedBook.start : reading.start
+        reading.end = updatedBook.end ? updatedBook.end : reading.end
+        reading.status = updatedBook.status ? updatedBook.status : reading.status
+        reading.public = (!(updatedBook.public === null)) ? updatedBook.public : reading.public
 
-        return book
+        await this.readingsRepository.save(reading)
+
+        return reading
     }
 
-    */
 }
