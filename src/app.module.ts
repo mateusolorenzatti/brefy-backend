@@ -7,12 +7,14 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 import { ReadingsModule } from './readings/readings.module';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
   imports: [
     AuthModule,
     BooksModule,
     ReadingsModule,
+    AuthorsModule,
     
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -25,8 +27,6 @@ import { ReadingsModule } from './readings/readings.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    
-    ReadingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
