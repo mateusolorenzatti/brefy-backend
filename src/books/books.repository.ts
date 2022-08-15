@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Book } from "./book.entity";
+import { Book } from "./entities/book.entity";
 import { CreateBookDto } from "./dto/create-book";
 import { GetBooksFilterDto } from "./dto/get-books-filter";
 

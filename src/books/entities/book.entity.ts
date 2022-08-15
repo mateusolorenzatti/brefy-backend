@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { Reading } from 'src/readings/reading.entity'
+import { Reading } from 'src/readings/entities/reading.entity'
 
 @Entity()
 export class Book {

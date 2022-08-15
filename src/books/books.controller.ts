@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 
-import { Book } from './book.entity'
+import { Book } from './entities/book.entity'
 import { BooksService } from './books.service'
 import { CreateBookDto } from './dto/create-book'
 import { GetBooksFilterDto } from './dto/get-books-filter'

@@ -1,10 +1,10 @@
-import { User } from "src/auth/user.entity";
-import { Book } from "src/books/book.entity";
+import { User } from "src/auth/entities/user.entity";
+import { Book } from "src/books/entities/book.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { CreateReadingDto } from "./dto/create-reading";
 import { GetReadingsFilterDto } from "./dto/get-readings-filter";
 
-import { Reading } from "./reading.entity";
+import { Reading } from "./entities/reading.entity";
 
 @EntityRepository(Reading)
 export class ReadingsRepository extends Repository<Reading> {

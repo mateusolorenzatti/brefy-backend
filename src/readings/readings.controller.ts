@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-import { GetUser } from 'src/auth/get-user.decorator';
-import { User } from 'src/auth/user.entity';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
+import { User } from 'src/auth/entities/user.entity';
 import { CreateReadingDto } from './dto/create-reading';
 import { GetReadingsFilterDto } from './dto/get-readings-filter';
 import { UpdateReadingDto } from './dto/update-reading';
-import { Reading } from './reading.entity';
+import { Reading } from './entities/reading.entity';
 import { ReadingsService } from './readings.service';
 
 @Controller('readings')

@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 ;
-import { UserLevel } from "./user-level.enum";
-import { Reading } from "src/readings/reading.entity";
+import { UserLevel } from "../enums/user-level.enum";
+import { Reading } from "src/readings/entities/reading.entity";
 
 @Entity()
 export class User{

@@ -5,8 +5,8 @@ import * as bcrypt from 'bcrypt';
 
 import { UsersRepository } from './users.repository';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from './jwt-payload.interface';
-import { UserLevel } from './user-level.enum';
+import { JwtPayload } from './jwt/jwt-payload.interface';
+import { UserLevel } from './enums/user-level.enum';
 import { AuthSignUpDto } from './dto/auth-sign-up.dto';
 
 @Injectable()

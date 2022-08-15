@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
-import { User } from 'src/auth/user.entity'
-import { Book } from 'src/books/book.entity'
-import { ReadingStatus } from './reading-status.enum'
+import { User } from 'src/auth/entities/user.entity'
+import { Book } from 'src/books/entities/book.entity'
+import { ReadingStatus } from '../reading-status.enum'
 
 @Entity()
 export class Reading {

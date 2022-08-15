@@ -1,13 +1,13 @@
 import { Controller, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { User } from 'src/auth/user.entity';
+import { User } from 'src/auth/entities/user.entity';
 import { UsersService } from 'src/auth/users.service';
 import { BooksService } from 'src/books/books.service';
 import { CreateReadingDto } from './dto/create-reading';
 import { GetReadingsFilterDto } from './dto/get-readings-filter';
 import { UpdateReadingDto } from './dto/update-reading';
-import { Reading } from './reading.entity';
+import { Reading } from './entities/reading.entity';
 import { ReadingsRepository } from './readings.repository';
 
 @Injectable()
